@@ -102,4 +102,42 @@ window.addEventListener('DOMContentLoaded', function () {
 
     setClock('.timer', dedline);
 
+    // Modal Fenster
+
+    const modalTrigger = document.querySelectorAll('[data-modal]'),
+        model = document.querySelector('.modal'),
+        modalClostBtn = document.querySelector('[data-close]');
+
+    modalTrigger.forEach(btn => {
+        btn.addEventListener('click', () => {
+            model.classList.add('show');
+            model.classList.remove('hide');
+            // model.classList.toggle('show'); то же самое, если  строки 112 и 113 закомитить
+            document.body.style.overflow = 'hidden'; // нельзя скролить на заднем фоне,пока окно активно
+        });
+
+    });
+
+    function closeModel() {
+        model.classList.add('hide');
+        model.classList.remove('show');
+        // model.classList.toggle('show'); то же самое если выше закомитеть
+        document.body.style.overflow = ''; // возврат скролла
+    }
+
+    modalClostBtn.addEventListener('click', closeModel);
+
+    model.addEventListener('click', (e) => {
+        if (e.target === model) { // кликаем на любое место на сайти
+            closeModel();
+        }
+    });
+
+    document.addEventListener('keydown', (e) => { // если нажимаем Escape, то окно закрывватся
+        if (e.code === 'Escape' && modal.classList.contains('show')) { // modal.classList.contains('show') только когда окно открыто
+            closeModel();
+        }
+
+    });
+
 });
