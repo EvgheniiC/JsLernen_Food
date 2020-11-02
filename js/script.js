@@ -109,14 +109,16 @@ window.addEventListener('DOMContentLoaded', function () {
         modalClostBtn = document.querySelector('[data-close]');
 
     modalTrigger.forEach(btn => {
-        btn.addEventListener('click', () => {
-            model.classList.add('show');
-            model.classList.remove('hide');
-            // model.classList.toggle('show'); то же самое, если  строки 112 и 113 закомитить
-            document.body.style.overflow = 'hidden'; // нельзя скролить на заднем фоне,пока окно активно
-        });
-
+        btn.addEventListener('click', openModel);
     });
+
+    function openModel() {
+        model.classList.add('show');
+        model.classList.remove('hide');
+        // model.classList.toggle('show'); то же самое, если  строки 112 и 113 закомитить
+        document.body.style.overflow = 'hidden'; // нельзя скролить на заднем фоне,пока окно активно
+        clearInterval(modalTimeId); // выводит окно только один раз
+    }
 
     function closeModel() {
         model.classList.add('hide');
@@ -139,5 +141,84 @@ window.addEventListener('DOMContentLoaded', function () {
         }
 
     });
+
+    const modalTimeId = setTimeout(openModel, 3000);
+
+    function showModelByScroll() { // когда пользователь перейдет в конец страницы ему вывидется openModel
+        if (window.pageYOffset + document.documentElement.clientHeight >=
+            document.documentElement.scrollHeight) {
+            openModel();
+            window.removeEventListener('scroll', showModelByScroll); //чтобы только один раз выводило в конце
+        }
+    }
+
+    window.addEventListener('scroll', showModelByScroll);
+
+
+    // Use classen for cards
+
+    class MenuCard {
+        constructor(src, alt, title, descr, price, parentSelector) {
+            this.src = src;
+            this.alt = alt;
+            this.title = title;
+            this.descr = descr;
+            this.price = price;
+            this.parent = document.querySelector(parentSelector);
+            this.transfer = 0.8;
+            this.changeToDollar(); 
+        }
+
+        changeToDollar() {
+            this.price = this.price * this.transfer; 
+        }
+
+        render() {
+            const element = document.createElement('div');
+            element.innerHTML = `
+                <div class="menu__item">
+                    <img src=${this.src} alt=${this.alt}>
+                    <h3 class="menu__item-subtitle">${this.title}</h3>
+                    <div class="menu__item-descr">${this.descr}</div>
+                    <div class="menu__item-divider"></div>
+                    <div class="menu__item-price">
+                        <div class="menu__item-cost">Price:</div>
+                        <div class="menu__item-total"><span>${this.price}</span> Euro</div>
+                    </div>
+                </div>
+            `;
+            this.parent.append(element);
+        }
+    }
+
+    new MenuCard(
+        "img/tabs/vegy.jpg",
+        "vegy",
+        '"Fitness-Menü"',
+        'Das "Fitness-Menü" ist eine neue Herangehensweise an das Kochen: mehr frisches Gemüse und Obst. Ein Produkt von aktiven und gesunden Menschen. Dies ist ein völlig neues Produkt mit einem optimalen Preis und hoher Qualität!',
+        9,
+        '.menu.container'
+    ).render();
+
+    new MenuCard(
+        "img/tabs/post.jpg",
+        "post",
+        '"Premium-Menü"',
+        'Im "Premium" -Menü verwenden wir nicht nur ein schönes Verpackungsdesign, sondern auch eine hochwertige Ausführung der Gerichte. Roter Fisch, Meeresfrüchte, Obst - Menü im Restaurant, ohne ins Restaurant zu gehen!',
+        14,
+        ".menu .container"
+    ).render();
+
+    new MenuCard(
+        "img/tabs/elite.jpg",
+        "elite",
+        'Vegan - Menu',
+        'Das Vegan-Menü ist eine sorgfältige Auswahl der Zutaten: ein völliges Fehlen tierischer Produkte, Milch aus Mandeln, Hafer, Kokosnuss oder Buchweizen, die richtige Menge an Protein aufgrund von Tofu und importierten vegetarischen Steaks.',
+        21,
+        ".menu .container"
+    ).render();
+
+
+
 
 });
