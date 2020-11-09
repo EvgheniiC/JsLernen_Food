@@ -166,11 +166,11 @@ window.addEventListener('DOMContentLoaded', function () {
             this.price = price;
             this.parent = document.querySelector(parentSelector);
             this.transfer = 0.8;
-            this.changeToDollar(); 
+            this.changeToDollar();
         }
 
         changeToDollar() {
-            this.price = this.price * this.transfer; 
+            this.price = this.price * this.transfer;
         }
 
         render() {
@@ -197,7 +197,7 @@ window.addEventListener('DOMContentLoaded', function () {
         '"Fitness-Menü"',
         'Das "Fitness-Menü" ist eine neue Herangehensweise an das Kochen: mehr frisches Gemüse und Obst. Ein Produkt von aktiven und gesunden Menschen. Dies ist ein völlig neues Produkt mit einem optimalen Preis und hoher Qualität!',
         9,
-        '.menu.container'
+        '.menu .container'
     ).render();
 
     new MenuCard(
