@@ -204,8 +204,12 @@ window.addEventListener('DOMContentLoaded', function () {
         '"Fitness-Menü"',
         'Das "Fitness-Menü" ist eine neue Herangehensweise an das Kochen: mehr frisches Gemüse und Obst. Ein Produkt von aktiven und gesunden Menschen. Dies ist ein völlig neues Produkt mit einem optimalen Preis und hoher Qualität!',
         9,
+<<<<<<< HEAD
         '.menu .container',
         'menu_item'
+=======
+        '.menu .container'
+>>>>>>> f3878681dc1c4639bb0526cced040a566e3298e9
     ).render();
 
     new MenuCard(
