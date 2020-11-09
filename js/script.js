@@ -158,25 +158,33 @@ window.addEventListener('DOMContentLoaded', function () {
     // Use classen for cards
 
     class MenuCard {
-        constructor(src, alt, title, descr, price, parentSelector) {
+        constructor(src, alt, title, descr, price, parentSelector, ...classes) {
             this.src = src;
             this.alt = alt;
             this.title = title;
             this.descr = descr;
             this.price = price;
+            this.classes = classes;
             this.parent = document.querySelector(parentSelector);
             this.transfer = 0.8;
-            this.changeToDollar(); 
+            this.changeToDollar();
         }
 
         changeToDollar() {
-            this.price = this.price * this.transfer; 
+            this.price = this.price * this.transfer;
         }
 
-        render() {
-            const element = document.createElement('div');
-            element.innerHTML = `
-                <div class="menu__item">
+            render() {
+                const element = document.createElement('div');
+    
+                if (this.classes.length === 0) {
+                    this.classes = "menu__item";
+                    element.classList.add(this.classes);
+                } else {
+                    this.classes.forEach(className => element.classList.add(className));
+                }
+
+            element.innerHTML = `        
                     <img src=${this.src} alt=${this.alt}>
                     <h3 class="menu__item-subtitle">${this.title}</h3>
                     <div class="menu__item-descr">${this.descr}</div>
@@ -184,8 +192,7 @@ window.addEventListener('DOMContentLoaded', function () {
                     <div class="menu__item-price">
                         <div class="menu__item-cost">Price:</div>
                         <div class="menu__item-total"><span>${this.price}</span> Euro</div>
-                    </div>
-                </div>
+                    </div>            
             `;
             this.parent.append(element);
         }
@@ -197,7 +204,8 @@ window.addEventListener('DOMContentLoaded', function () {
         '"Fitness-Menü"',
         'Das "Fitness-Menü" ist eine neue Herangehensweise an das Kochen: mehr frisches Gemüse und Obst. Ein Produkt von aktiven und gesunden Menschen. Dies ist ein völlig neues Produkt mit einem optimalen Preis und hoher Qualität!',
         9,
-        '.menu.container'
+        '.menu .container',
+        'menu_item'
     ).render();
 
     new MenuCard(
@@ -206,7 +214,8 @@ window.addEventListener('DOMContentLoaded', function () {
         '"Premium-Menü"',
         'Im "Premium" -Menü verwenden wir nicht nur ein schönes Verpackungsdesign, sondern auch eine hochwertige Ausführung der Gerichte. Roter Fisch, Meeresfrüchte, Obst - Menü im Restaurant, ohne ins Restaurant zu gehen!',
         14,
-        ".menu .container"
+        ".menu .container",
+        'menu_item'
     ).render();
 
     new MenuCard(
@@ -215,7 +224,8 @@ window.addEventListener('DOMContentLoaded', function () {
         'Vegan - Menu',
         'Das Vegan-Menü ist eine sorgfältige Auswahl der Zutaten: ein völliges Fehlen tierischer Produkte, Milch aus Mandeln, Hafer, Kokosnuss oder Buchweizen, die richtige Menge an Protein aufgrund von Tofu und importierten vegetarischen Steaks.',
         21,
-        ".menu .container"
+        ".menu .container",
+        'menu_item'
     ).render();
 
 
