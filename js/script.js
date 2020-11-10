@@ -174,26 +174,26 @@ window.addEventListener('DOMContentLoaded', function () {
             this.price = this.price * this.transfer;
         }
 
-            render() {
-                const element = document.createElement('div');
-    
-                if (this.classes.length === 0) {
-                    this.classes = "menu__item";
-                    element.classList.add(this.classes);
-                } else {
-                    this.classes.forEach(className => element.classList.add(className));
-                }
+        render() {
+            const element = document.createElement('div');
 
-            element.innerHTML = `        
-                    <img src=${this.src} alt=${this.alt}>
-                    <h3 class="menu__item-subtitle">${this.title}</h3>
-                    <div class="menu__item-descr">${this.descr}</div>
-                    <div class="menu__item-divider"></div>
-                    <div class="menu__item-price">
-                        <div class="menu__item-cost">Price:</div>
-                        <div class="menu__item-total"><span>${this.price}</span> Euro</div>
-                    </div>            
-            `;
+            if (this.classes.length === 0) {
+                this.classes = "menu__item";
+                element.classList.add(this.classes);
+            } else {
+                this.classes.forEach(className => element.classList.add(className));
+            }
+
+            element.innerHTML = `
+                   <img src=${this.src} alt=${this.alt}>
+                   <h3 class="menu__item-subtitle">${this.title}</h3>
+                   <div class="menu__item-descr">${this.descr}</div>
+                   <div class="menu__item-divider"></div>
+                   <div class="menu__item-price">
+                       <div class="menu__item-cost">Price</div>
+                       <div class="menu__item-total"><span>${this.price}</span> Euro/Tag</div>
+                   </div>
+               `;
             this.parent.append(element);
         }
     }
@@ -204,12 +204,8 @@ window.addEventListener('DOMContentLoaded', function () {
         '"Fitness-Menü"',
         'Das "Fitness-Menü" ist eine neue Herangehensweise an das Kochen: mehr frisches Gemüse und Obst. Ein Produkt von aktiven und gesunden Menschen. Dies ist ein völlig neues Produkt mit einem optimalen Preis und hoher Qualität!',
         9,
-<<<<<<< HEAD
         '.menu .container',
         'menu_item'
-=======
-        '.menu .container'
->>>>>>> f3878681dc1c4639bb0526cced040a566e3298e9
     ).render();
 
     new MenuCard(
@@ -233,6 +229,57 @@ window.addEventListener('DOMContentLoaded', function () {
     ).render();
 
 
+    //Forms
 
+    const forms = document.querySelectorAll('form');
 
+    const message = {
+        loading: 'Loading',
+        success: 'Danke, wir rufen Sie gleich',
+        failure: 'Fehler...'
+
+    }
+
+    forms.forEach(item => {
+        postData(item);
+    });
+
+    function postData(form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault(); // отмена стандартного поведения браузера,те он не будет перегружать страницу
+
+            const statusMessage = document.createElement('div');
+            statusMessage.classList.add('status');
+            statusMessage.textContent = message.loading;
+            form.append(statusMessage);
+
+            const req = new XMLHttpRequest();
+            req.open('POST', 'server.php');
+
+            req.setRequestHeader('Content-type', 'application/json');// эту строку нао закоментить,если в консоле хочу увидеть данные
+            const formData = new FormData(form);
+
+            const object = {};
+            formData.forEach(function(value,key){
+                object[key] = value;
+            });
+
+            const json = JSON.stringify(object);
+
+            req.send(json);
+
+            req.addEventListener('load', () => {
+                if (req.status === 200) {
+                    console.log(req.response);
+                    statusMessage.textContent = message.success;
+                    form.reset();
+                    setInterval(() => {
+                        statusMessage.remove()
+                    }, 2000);
+                } else {
+                    statusMessage.textContent = message.failure;
+                }
+            });
+        });
+    }
 });
