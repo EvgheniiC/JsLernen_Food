@@ -1,0 +1,62 @@
+{
+  "menu": [
+    {
+      "img": "img/tabs/vegy.jpg",
+      "altimg": "vegy",
+      "title": "Menu Fitness'",
+      "descr": "Das Fitness-Menü ist eine neue Herangehensweise an das Kochen: mehr frisches Gemüse und Obst. Ein Produkt von aktiven und gesunden Menschen. Dies ist ein völlig neues Produkt mit einem optimalen Preis und hoher Qualität!",
+      "price": 9
+    },
+    {
+      "img": "img/tabs/post.jpg",
+      "altimg": "post",
+      "title": "Menü Vegan",
+      "descr": "Menü Vegan - Es ist eine sorgfältige Auswahl der Zutaten: das völlige Fehlen tierischer Produkte, Milch aus Mandeln, Hafer, Kokosnuss oder Buchweizen, die richtige Menge an Protein aufgrund von Tofu und importierten vegetarischen Steaks.",
+      "price": 14
+    },
+    {
+      "img": "img/tabs/elite.jpg",
+      "altimg": "elite",
+      "title": "Menü 'Premium'",
+      "descr": "Im 'Premium'-Menü verwenden wir nicht nur ein schönes Verpackungsdesign, sondern auch hochwertige Gerichte. Roter Fisch, Meeresfrüchte, Obst - Menü im Restaurant, ohne ins Restaurant zu gehen!",
+      "price": 21
+    }
+  ],
+  "requests": [
+    {
+      "name": "Evghenii",
+      "phone": "2222222",
+      "id": 1
+    },
+    {
+      "name": " Имя",
+      "phone": "23223",
+      "id": 2
+    },
+    {
+      "name": "Vasia",
+      "phone": "23223",
+      "id": 3
+    },
+    {
+      "name": "Vasilu",
+      "phone": "23223",
+      "id": 4
+    },
+    {
+      "name": "Evghenii",
+      "phone": "2222222",
+      "id": 5
+    },
+    {
+      "name": "Лабораторная",
+      "phone": "11111111",
+      "id": 6
+    },
+    {
+      "name": "Vasia",
+      "phone": "2222222",
+      "id": 7
+    }
+  ]
+}
